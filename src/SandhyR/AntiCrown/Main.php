@@ -18,7 +18,7 @@ class Main extends PluginBase implements Listener{
     }
 
     public function onLogin(PlayerLoginEvent $event){
-        $this->getServer()->getAsyncPool()->submitTask(new QueryAsyncTask($event->getPlayer()->getName(), $this));
+        $this->getServer()->getAsyncPool()->submitTask(new QueryAsyncTask($event->getPlayer()->getName()));
     }
 
     public function kickPlayer(string $username){
