@@ -2,15 +2,14 @@
 
 namespace SandhyR\AntiCrown;
 
-use pocketmine\player\Player;
 use pocketmine\scheduler\AsyncTask;
 
 class QueryAsyncTask extends AsyncTask{
 
-    /** @var Player */
-    private Player $player;
+    /** @var string */
+    private string $player;
 
-    public function __construct(Player $player)
+    public function __construct(string $player)
     {
         $this->player = $player;
     }
@@ -30,8 +29,8 @@ class QueryAsyncTask extends AsyncTask{
     public function onCompletion(): void
     {
         $result = $this->getResult();
-        if(in_array(strtolower($this->player->getName()), array_merge($result["officers"], $result["members"], [$result["leader"]]))){
-            $this->player->kick("Kron");
+        if(in_array(strtolower($this->player), array_merge($result["officers"], $result["members"], [$result["leader"]]))){
+            Main::getInstance()->kickPlayer($this->player);
         }
     }
 }
