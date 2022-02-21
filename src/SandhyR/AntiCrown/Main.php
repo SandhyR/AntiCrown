@@ -23,11 +23,12 @@ class Main extends PluginBase implements Listener{
         $headers = [];
         $curlOpts = [];
         $curl = CurlLib::init($this, 1);
-        $curl->get($url, $headers, $curlOpts, function(CurlResponse $response) use ($event) {
+        $curl->get($url, $headers, $curlOpts, function(CurlResponse $response) use ($event, $curl) {
             $result = json_decode($response->getBody(), true);
             if(in_array(strtolower($event->getPlayer()->getName()), array_merge($result["officers"], $result["members"], [$result["leader"]]))){
                 $event->getPlayer()->kick("Kron");
             }
+            $curl->close();
         });
     }
 }
